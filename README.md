@@ -14,7 +14,6 @@
 </p>
 </div>
 
-
 ## 🔗 Table of Contents
 
 - [📍 Overview](#-overview)
@@ -23,8 +22,7 @@
 - [🚀 Getting Started](#-getting-started)
 - [🎗 License](#-license)
 - [🙌 Acknowledgments](#-acknowledgments)
-
----
+- [📸 Screenshots](#-screenshots)
 
 ## 📍 Overview
 
