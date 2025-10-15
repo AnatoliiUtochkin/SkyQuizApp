@@ -204,3 +204,17 @@ For full details, please see the [LICENSE](LICENSE) file.
 - Libraries used in the project: FontAwesome, LiveCharts, PDFsharp, ClosedXML, Serilog.
 - Special thanks to the course instructors and classmates for feedback during project development.
 
+## 📸 Screenshots
+
+<table>
+  <tr>
+    <td><img src="screenshots/1.png" alt="Screenshot 1" width="400"/></td>
+    <td><img src="screenshots/2.png" alt="Screenshot 2" width="400"/></td>
+    <td><img src="screenshots/3.png" alt="Screenshot 3" width="400"/></td>
+  </tr>
+  <tr>
+	<td><img src="screenshots/6.png" alt="Screenshot 6" width="400"/></td>
+    <td><img src="screenshots/7.png" alt="Screenshot 7" width="400"/></td>
+    <td><img src="screenshots/8.png" alt="Screenshot 8" width="400"/></td>
+  </tr>
+</table>
