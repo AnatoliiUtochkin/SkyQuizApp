@@ -1,0 +1,241 @@
+﻿<Window x:Class="SkyQuizApp.Views.Teacher.TestResultsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="clr-namespace:FontAwesome.Sharp;assembly=FontAwesome.Sharp"
+        mc:Ignorable="d"
+        Title="Результати тесту - SkyQuizApp"
+        Height="600"
+        Width="900"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        FontFamily="Montserrat"
+        MouseDown="Window_MouseDown"
+        ResizeMode="NoResize"
+        SizeToContent="Manual">
+
+    <Border CornerRadius="10" BorderThickness="2" BorderBrush="{StaticResource MainBorderBrush}" Background="{StaticResource MainBackgroundBrush}">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal"
+                        FlowDirection="RightToLeft"
+                        Background="Transparent"
+                        Height="45"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right">
+                <Button x:Name="btnClose"
+                        Content="x"
+                        Click="btnClose_Click"
+                        BorderThickness="0"
+                        Foreground="{StaticResource WhiteTextBrush}"
+                        FontSize="12"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Margin="10,10,5,3">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="{StaticResource AccentPinkBrush}" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource AccentPinkHoverBrush}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="22" Height="22" CornerRadius="20" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button x:Name="btnMinimize"
+                        Content="-"
+                        Click="btnMinimize_Click"
+                        BorderThickness="0"
+                        Foreground="{StaticResource WhiteTextBrush}"
+                        FontSize="16"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Margin="5,10,5,3">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="{StaticResource AccentBlueBrush}" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource AccentBlueHoverBrush}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="20" Height="20" CornerRadius="20" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Row="0" Margin="0,40,0,15">
+                <TextBlock Text="{Binding TestTitle}" FontSize="24" FontWeight="Bold" Foreground="White" />
+                <TextBlock Text="{Binding TestDescription}" FontSize="14" Foreground="LightGray" />
+            </StackPanel>
+
+            <DockPanel Grid.Row="1" Margin="0,0,0,20">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                    <Border Width="180" Height="80" Padding="10" Margin="0,0,20,0" Background="#2C3E50" CornerRadius="10">
+                        <StackPanel>
+                            <TextBlock Text="Середній бал" Foreground="White" FontSize="14" />
+                            <TextBlock Text="{Binding AverageScore, StringFormat={}{0:F1}%}" FontSize="20" FontWeight="Bold" Foreground="#1ABC9C" Margin="0,6,0,0" />
+                        </StackPanel>
+                    </Border>
+                    <Border Width="180" Height="80" Padding="10" Margin="0,0,20,0" Background="#2C3E50" CornerRadius="10">
+                        <StackPanel>
+                            <TextBlock Text="Успішність" Foreground="White" FontSize="14" />
+                            <TextBlock Text="{Binding SuccessRate, StringFormat={}{0:F1}%}" FontSize="20" FontWeight="Bold" Foreground="#F1C40F" Margin="0,6,0,0" />
+                        </StackPanel>
+                    </Border>
+                    <Border Width="180" Height="80" Padding="10" Background="#2C3E50" CornerRadius="10">
+                        <StackPanel>
+                            <TextBlock Text="Кількість проходжень" Foreground="White" FontSize="14" />
+                            <TextBlock Text="{Binding TotalAttempts}" FontSize="20" FontWeight="Bold" Foreground="#3498DB" Margin="0,6,0,0" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Command="{Binding ExportToPdfCommand}"
+                            Width="150" Height="40" Padding="10,5"
+                            Background="#C0392B" Foreground="White" FontWeight="Bold" Cursor="Hand" Margin="10,0,0,10"
+                            BorderThickness="0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="20" Background="{TemplateBinding Background}">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <fa:IconBlock Icon="FilePdf" Width="20" Height="20" Margin="0,5,10,0" />
+                                        <TextBlock Text="PDF" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Command="{Binding ExportToExcelCommand}"
+                            Width="150" Height="40" Padding="10,5"
+                            Background="#27AE60" Foreground="White" FontWeight="Bold" Cursor="Hand" Margin="10,0,0,0"
+                            BorderThickness="0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="20" Background="{TemplateBinding Background}">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <fa:IconBlock Icon="FileExcel" Width="20" Height="20" Margin="0,5,8,0" />
+                                        <TextBlock Text="Excel" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+
+            <Border CornerRadius="8" Background="#1E1E2F" Padding="1" Grid.Row="2">
+                <DataGrid ItemsSource="{Binding Results}"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          IsReadOnly="True"
+                          RowHeight="42"
+                          GridLinesVisibility="None"
+                          HeadersVisibility="Column"
+                          BorderThickness="0"
+                          Background="Transparent"
+                          Foreground="White"
+                          FontSize="14"
+                          ColumnHeaderHeight="40"
+                          AlternatingRowBackground="#262638"
+                          RowBackground="#1E1E2F"
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          HorizontalAlignment="Stretch">
+
+                    <DataGrid.Resources>
+                        <Style x:Key="CenteredTextStyle" TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#2C2F48" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontWeight" Value="SemiBold" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="Padding" Value="10,4" />
+                        </Style>
+
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="Padding" Value="10,4" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="FontSize" Value="14" />
+                        </Style>
+
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="SnapsToDevicePixels" Value="True" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontSize" Value="14" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#3E3E66" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#6C63FF" />
+                                    <Setter Property="Foreground" Value="White" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ПІБ"
+                                            Binding="{Binding FullName}"
+                                            ElementStyle="{StaticResource CenteredTextStyle}"
+                                            Width="*" />
+                        <DataGridTextColumn Header="Дата проходження"
+                                            Binding="{Binding CompletedAt, StringFormat=yyyy-MM-dd HH:mm}"
+                                            ElementStyle="{StaticResource CenteredTextStyle}"
+                                            Width="170" />
+                        <DataGridTextColumn Header="Оцінка (%)"
+                                            Binding="{Binding Score}"
+                                            ElementStyle="{StaticResource CenteredTextStyle}"
+                                            Width="120" />
+                        <DataGridTextColumn Header="Оцінка (12 б.)"
+                                            Binding="{Binding Grade12}"
+                                            ElementStyle="{StaticResource CenteredTextStyle}"
+                                            Width="120" />
+                        <DataGridTextColumn Header="Оцінка (100 б.)"
+                                            Binding="{Binding Grade100}"
+                                            ElementStyle="{StaticResource CenteredTextStyle}"
+                                            Width="120" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

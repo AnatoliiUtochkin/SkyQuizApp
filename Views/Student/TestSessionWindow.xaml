@@ -1,0 +1,249 @@
+﻿<Window x:Class="SkyQuizApp.Views.Student.TestSessionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:SkyQuizApp.Converters"
+        xmlns:selectors="clr-namespace:SkyQuizApp.Views.Student.Selectors"
+        mc:Ignorable="d"
+        Title="Проходження тесту - SkyQuizApp"
+        WindowState="Maximized"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent">
+
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:DictionaryValueConverter x:Key="DictionaryValueConverter" />
+        <converters:SelectedAnswerEqualityConverter x:Key="SelectedAnswerEqualityConverter" />
+        <converters:TrueFalseTextToAnswerIdConverter x:Key="TrueFalseTextToAnswerIdConverter" />
+
+        <DataTemplate x:Key="SingleChoiceTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding Text}" FontSize="22" Foreground="White" Margin="0,0,0,10" TextWrapping="Wrap" />
+                <ItemsControl ItemsSource="{Binding Answers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton Content="{Binding Text}"
+                                         GroupName="SingleChoiceGroup"
+                                         FontSize="20"
+                                         Foreground="White"
+                                         Margin="0,5"
+                                         Command="{Binding DataContext.SelectAnswerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                         CommandParameter="{Binding AnswerID}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="MultipleChoiceTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding Text}" FontSize="22" Foreground="White" Margin="0,0,0,10" TextWrapping="Wrap" />
+                <ItemsControl ItemsSource="{Binding Answers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Content="{Binding Text}"
+                                      FontSize="20"
+                                      Foreground="White"
+                                      Margin="0,5"
+                                      Command="{Binding DataContext.SelectAnswerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                      CommandParameter="{Binding AnswerID}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ShortAnswerTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding Text}" FontSize="22" Foreground="White" Margin="0,0,0,10" TextWrapping="Wrap" />
+                <TextBox Text="{Binding DataContext.ShortAnswerText, RelativeSource={RelativeSource AncestorType=Window}}"
+                         FontSize="20"
+                         Foreground="White"
+                         Background="#3B3F5C"
+                         BorderBrush="#6C5DD3"
+                         BorderThickness="2"
+                         Height="120"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True" />
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TrueFalseTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding Text}" FontSize="22" Foreground="White" Margin="0,0,0,10" TextWrapping="Wrap" />
+                <StackPanel>
+                    <RadioButton Content="Правда"
+                                 GroupName="TrueFalseGroup"
+                                 FontSize="20"
+                                 Foreground="White"
+                                 Margin="0,5"
+                                 Command="{Binding DataContext.SelectAnswerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                 CommandParameter="{Binding DataContext.CurrentQuestion.Answers[0].AnswerID, RelativeSource={RelativeSource AncestorType=Window}}" />
+                    <RadioButton Content="Неправда"
+                                 GroupName="TrueFalseGroup"
+                                 FontSize="20"
+                                 Foreground="White"
+                                 Margin="0,5"
+                                 Command="{Binding DataContext.SelectAnswerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                 CommandParameter="{Binding DataContext.CurrentQuestion.Answers[1].AnswerID, RelativeSource={RelativeSource AncestorType=Window}}" />
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="MatchingTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding Text}" FontSize="22" Foreground="White" Margin="0,0,0,10" TextWrapping="Wrap" />
+                <ItemsControl ItemsSource="{Binding DataContext.MatchingPairs, RelativeSource={RelativeSource AncestorType=Window}}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,5">
+                                <TextBlock Text="{Binding Left.Text}" Foreground="White" FontSize="20" Width="250" VerticalAlignment="Center" />
+                                <ComboBox Width="250"
+                                          FontSize="18"
+                                          Margin="20,0,0,0"
+                                          ItemsSource="{Binding Options}"
+                                          DisplayMemberPath="Text"
+                                          SelectedItem="{Binding Selected, Mode=TwoWay}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </DataTemplate>
+
+        <selectors:QuestionTemplateSelector x:Key="QuestionSelector"
+                                            SingleChoiceTemplate="{StaticResource SingleChoiceTemplate}"
+                                            MultipleChoiceTemplate="{StaticResource MultipleChoiceTemplate}"
+                                            ShortAnswerTemplate="{StaticResource ShortAnswerTemplate}"
+                                            TrueFalseTemplate="{StaticResource TrueFalseTemplate}"
+                                            MatchingTemplate="{StaticResource MatchingTemplate}" />
+
+        <Style TargetType="Button" x:Key="NavQuestionButtonStyle">
+            <Setter Property="Background" Value="#3B3F5C" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="Height" Value="55" />
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="12">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#6C5DD3" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RoundedButton" TargetType="Button">
+            <Setter Property="Background" Value="#6C5DD3" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Height" Value="55" />
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="28">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border BorderBrush="#6C5DD3" BorderThickness="2" CornerRadius="12">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
+                <GradientStop Color="#2A2D43" Offset="0" />
+                <GradientStop Color="#1E1E2E" Offset="1" />
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="#2C2F48" CornerRadius="12,0,0,12" Margin="0,0,10,0">
+                <StackPanel Margin="20">
+                    <TextBlock Text="Питання" FontSize="24" FontWeight="Bold" Foreground="White" Margin="10" />
+                    <ItemsControl ItemsSource="{Binding QuestionNavItems}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding Index}"
+                                        Command="{Binding DataContext.NavigateToQuestionCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding QuestionID}"
+                                        Style="{StaticResource NavQuestionButtonStyle}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Margin="20,10" Height="20" Background="#3B3F5C">
+                    <ProgressBar Value="{Binding TimerProgress}"
+                 Maximum="100"
+                 Foreground="#6C5DD3"
+                 Background="Transparent"
+                 BorderThickness="0" />
+                </Border>
+
+                <TextBlock Grid.Row="1"
+                           Text="{Binding TimeLeftText}"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="0,5" />
+
+                <Border Grid.Row="2"
+                        Margin="30"
+                        CornerRadius="12"
+                        Background="#2C2F48"
+                        Padding="30">
+                    <ContentControl Content="{Binding CurrentQuestion}"
+                                    ContentTemplateSelector="{StaticResource QuestionSelector}" />
+                </Border>
+
+                <StackPanel Grid.Row="3"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0,20">
+                    <Button Content="Попереднє"
+                            Command="{Binding PreviousCommand}"
+                            Style="{StaticResource RoundedButton}"
+                            Visibility="{Binding IsNotFirstQuestion, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="{Binding NextOrFinishLabel}"
+                            Command="{Binding NextOrFinishCommand}"
+                            Style="{StaticResource RoundedButton}"
+                            Margin="30,0,0,0" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

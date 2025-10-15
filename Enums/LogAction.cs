@@ -1,0 +1,33 @@
+﻿namespace SkyQuizApp.Enums
+{
+    public enum LogAction
+    {
+        UserLogin,
+        UserLogout,
+        EmailChange,
+        TwoFactorEnable,
+        TwoFactorDisable,
+        UserBlocked,
+        UserUnblocked,
+        TestCreated,
+        TestUpdated,
+        TestDeleted,
+        QuestionCreated,
+        QuestionUpdated,
+        QuestionDeleted,
+        AnswerCreated,
+        AnswerUpdated,
+        AnswerDeleted,
+        TestAttempted,
+        TestSubmitted,
+        ResultViewed,
+        CodeRequested,
+        CodeVerified,
+        CodeRejected,
+        PasswordRejected,
+        PasswordChange,
+        UserCreated,
+        UserDeleted,
+        UserUpdated,
+    }
+}

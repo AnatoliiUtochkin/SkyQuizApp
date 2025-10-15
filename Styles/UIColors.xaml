@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="AccentPinkColor">#DA34AE</Color>
+    <Color x:Key="AccentPinkHoverColor">#C62DAE</Color>
+    <Color x:Key="AccentBlueColor">#28AEED</Color>
+    <Color x:Key="AccentBlueHoverColor">#278BEF</Color>
+    <Color x:Key="DarkBackgroundColor">#060531</Color>
+    <Color x:Key="DarkBackgroundColor2">#1B1448</Color>
+    <Color x:Key="BorderStartColor">#462AD8</Color>
+    <Color x:Key="BorderMiddleColor">#DA34AE</Color>
+    <Color x:Key="BorderEndColor">#8A16C1</Color>
+    <Color x:Key="TextGrayColor">DarkGray</Color>
+    <Color x:Key="TextWhiteColor">White</Color>
+    <Color x:Key="LightGrayColor">LightGray</Color>
+    <Color x:Key="BorderMiddleHoverColor">#C62DAE</Color>
+    <Color x:Key="primaryBackColor1">#0A003A</Color>
+    <Color x:Key="primaryBackColor2">#1C0E49</Color>
+    <Color x:Key="secondaryBackColor1">#24105F</Color>
+    <Color x:Key="secondaryBackColor2">#210F55</Color>
+
+    <SolidColorBrush x:Key="menuColor1" Color="#E285DE" />
+    <SolidColorBrush x:Key="menuColor2" Color="#784DFD" />
+    <SolidColorBrush x:Key="menuColor3" Color="#4ADAEC" />
+    <SolidColorBrush x:Key="menuColor4" Color="#FB539B" />
+    <SolidColorBrush x:Key="menuColor5" Color="#7E82FC" />
+    <SolidColorBrush x:Key="menuColor6" Color="#FFC047" />
+    <SolidColorBrush x:Key="menuColor7" Color="#EF6C96" />
+    <SolidColorBrush x:Key="menuColor8" Color="#78A3FC" />
+    <SolidColorBrush x:Key="menuColor9" Color="#07F3C0" />
+    <SolidColorBrush x:Key="menuColor10" Color="#FBA1AA" />
+
+    <SolidColorBrush x:Key="titleColor1" Color="#E0E1F1" />
+    <SolidColorBrush x:Key="titleColor2" Color="#D5CFF5" />
+    <SolidColorBrush x:Key="titleColor3" Color="#BCBEE0" />
+    <SolidColorBrush x:Key="plainTextColor1" Color="#9497CD" />
+    <SolidColorBrush x:Key="plainTextColor2" Color="#7C80C2" />
+    <SolidColorBrush x:Key="plainTextColor3" Color="#7376BD" />
+
+    <SolidColorBrush x:Key="panelColor" Color="#200F53" />
+    <SolidColorBrush x:Key="panelOverColor" Color="#281269" />
+    <SolidColorBrush x:Key="panelActiveColor" Color="#2B1372" />
+
+    <SolidColorBrush x:Key="AccentPinkBrush" Color="{StaticResource AccentPinkColor}" />
+    <SolidColorBrush x:Key="AccentPinkHoverBrush" Color="{StaticResource AccentPinkHoverColor}" />
+    <SolidColorBrush x:Key="AccentBlueBrush" Color="{StaticResource AccentBlueColor}" />
+    <SolidColorBrush x:Key="AccentBlueHoverBrush" Color="{StaticResource AccentBlueHoverColor}" />
+    <SolidColorBrush x:Key="GrayTextBrush" Color="{StaticResource TextGrayColor}" />
+    <SolidColorBrush x:Key="WhiteTextBrush" Color="{StaticResource TextWhiteColor}" />
+    <SolidColorBrush x:Key="LightGrayBrush" Color="{StaticResource LightGrayColor}" />
+    <SolidColorBrush x:Key="BorderMiddleBrush" Color="{StaticResource BorderMiddleColor}" />
+
+    <LinearGradientBrush x:Key="MainBorderBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{StaticResource BorderStartColor}" Offset="0" />
+        <GradientStop Color="{StaticResource BorderMiddleColor}" Offset="0.75" />
+        <GradientStop Color="{StaticResource BorderEndColor}" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MainBackgroundBrush" StartPoint="0,1" EndPoint="1,0">
+        <GradientStop Color="{StaticResource DarkBackgroundColor}" Offset="0" />
+        <GradientStop Color="{StaticResource DarkBackgroundColor2}" Offset="1" />
+    </LinearGradientBrush>
+</ResourceDictionary>

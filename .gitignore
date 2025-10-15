@@ -1,0 +1,44 @@
+## Build results
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug*/
+[Rr]elease*/
+x64/
+x86/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio
+.vscode/
+.vs/
+*.dbmdl
+*.pdb
+*.cache
+*.log
+
+## Entity Framework Migrations snapshots (якщо не треба тримати їх у репозиторії)
+Migrations/*Snapshot.cs
+
+## SQLite DB (якщо використовуєш)
+*.db
+*.db-shm
+*.db-wal
+
+## Temporary files
+*.tmp
+*.temp
+
+## Other
+TestResults/
+*.ncrunch*
+*.localhistory
+.idea/
+_ReSharper*/
+*.DotSettings.user
+
+appsettings.json

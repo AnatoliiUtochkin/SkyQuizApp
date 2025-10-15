@@ -1,0 +1,217 @@
+﻿<UserControl x:Class="SkyQuizApp.Views.Admin.Tabs.TestsTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="1050"
+             x:Name="TestsRoot">
+
+    <UserControl.Resources>
+        <Style x:Key="CenteredTextBlock" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+
+        <Style x:Key="TransparentTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="CaretBrush" Value="White" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+
+        <Style x:Key="IconButtonPurple" TargetType="Button">
+            <Setter Property="Background" Value="#6C63FF" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="Margin" Value="4,0" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Width="34" Height="34">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#807AFF" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="IconButtonGreen" TargetType="Button" BasedOn="{StaticResource IconButtonPurple}">
+            <Setter Property="Background" Value="#2ECC71" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#45D88A" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="IconButtonRed" TargetType="Button" BasedOn="{StaticResource IconButtonPurple}">
+            <Setter Property="Background" Value="#FF4B5C" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF6B7C" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RowHoverStyle" TargetType="DataGridRow">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3E3E66" />
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#6C63FF" />
+                    <Setter Property="Foreground" Value="White" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CellStyleCentered" TargetType="DataGridCell">
+            <Setter Property="Padding" Value="8,4" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#6C63FF" />
+                    <Setter Property="Foreground" Value="White" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ColumnHeaderCentered" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Padding" Value="8,4" />
+            <Setter Property="BorderBrush" Value="#3F3F52" />
+            <Setter Property="BorderThickness" Value="0 0 0 1" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="30,20" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0 0 0 20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Керування тестами"
+                       FontSize="26"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       VerticalAlignment="Center"
+                       Margin="10" />
+
+            <Button x:Name="AddTestButton"
+                    ToolTip="Додати тест"
+                    Style="{StaticResource IconButtonGreen}"
+                    MinWidth="110"
+                    Height="40"
+                    Margin="230,5,0,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Click="AddTestButton_Click">
+                <fa:IconImage Icon="Plus" Width="20" Height="20" />
+            </Button>
+        </Grid>
+
+        <Border Grid.Row="1" Background="#1A1A2C" CornerRadius="8" Padding="10">
+            <DataGrid x:Name="TestsDataGrid"
+                      ItemsSource="{Binding Tests}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      CanUserResizeColumns="False"
+                      HeadersVisibility="Column"
+                      SelectionUnit="FullRow"
+                      Background="Transparent"
+                      Foreground="White"
+                      BorderThickness="0"
+                      RowHeight="40"
+                      ColumnHeaderHeight="40"
+                      FontSize="14"
+                      GridLinesVisibility="None"
+                      RowStyle="{StaticResource RowHoverStyle}"
+                      CellStyle="{StaticResource CellStyleCentered}"
+                      ColumnHeaderStyle="{StaticResource ColumnHeaderCentered}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.CanContentScroll="False"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden">
+
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID тесту" Binding="{Binding TestID}" Width="70"
+                                        IsReadOnly="True"
+                                        ElementStyle="{StaticResource CenteredTextBlock}" />
+
+                    <DataGridTextColumn Header="Назва" Binding="{Binding Title}" Width="2*"
+                                        ElementStyle="{StaticResource CenteredTextBlock}"
+                                        EditingElementStyle="{StaticResource TransparentTextBox}" />
+
+                    <DataGridTextColumn Header="Опис" Binding="{Binding Description}" Width="3*"
+                                        ElementStyle="{StaticResource CenteredTextBlock}"
+                                        EditingElementStyle="{StaticResource TransparentTextBox}" />
+
+                    <DataGridTextColumn Header="Ключ" Binding="{Binding TestKey}" IsReadOnly="True" Width="*"
+                                        ElementStyle="{StaticResource CenteredTextBlock}" />
+
+                    <DataGridTextColumn Header="ID користувача" Binding="{Binding UserID}" Width="150"
+                                        ElementStyle="{StaticResource CenteredTextBlock}"
+                                        EditingElementStyle="{StaticResource TransparentTextBox}" />
+
+                    <DataGridTextColumn Header="Дата створення" Binding="{Binding CreatedAt, StringFormat=yyyy-MM-dd}" Width="2*"
+                                        IsReadOnly="True"
+                                        ElementStyle="{StaticResource CenteredTextBlock}" />
+
+                    <DataGridTextColumn Header="Ліміт (хв)" Binding="{Binding TimeLimitMinutes}" Width="2*"
+                                        ElementStyle="{StaticResource CenteredTextBlock}"
+                                        EditingElementStyle="{StaticResource TransparentTextBox}" />
+
+                    <DataGridTemplateColumn Header="Дії" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button ToolTip="Підтвердити зміни" Style="{StaticResource IconButtonGreen}" Click="ConfirmTestButton_Click">
+                                        <fa:IconImage Icon="Check" Width="16" Height="16" />
+                                    </Button>
+                                    <Button ToolTip="Видалити" Style="{StaticResource IconButtonRed}" Click="DeleteTestButton_Click">
+                                        <fa:IconImage Icon="Trash" Width="16" Height="16" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>
